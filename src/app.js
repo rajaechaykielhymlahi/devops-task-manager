@@ -6,11 +6,14 @@ app.use(express.json());
 const tasksRouter = require('./routes/tasks');
 
 app.get('/', (req, res) => {
-  res.json({ message: "Welcome from MAIN branch" });
+  res.json({ message: "Task Manager API running (Lab2)" });
 });
 
 app.use('/tasks', tasksRouter);
 
-app.listen(3000, () => console.log("API running on port 3000"));
-// CI test change
-console.log("Testing CI with Pull Request");
+if (require.main === module) {
+  app.listen(3000, () => console.log("API running on port 3000"));
+}
+
+// Export app for testing
+module.exports = app;
